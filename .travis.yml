@@ -6,7 +6,8 @@ php:
   - 7.1
   - 7.2
   - 7.3
-  - nightly
+  - 7.4snapshot
+  - nightly 
 
 env:
   - DEPENDENCIES=no
@@ -16,6 +17,7 @@ env:
 matrix:
   allow_failures:
     - php: nightly
+    - php: 7.4snapshot
     - env: DEPENDENCIES=beta
     - env: DEPENDENCIES=low
 

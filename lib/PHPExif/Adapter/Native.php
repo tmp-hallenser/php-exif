@@ -333,7 +333,7 @@ class Native extends AdapterAbstract
      * @return float
      */
     private function convertDMStoDecimal
-        (string $sign, string $degrees, string $minutes, string $seconds, string $fraction): FLOAT
+        (string $sign, string $degrees, string $minutes, string $seconds, string $fraction)
     {
         if ($fraction !== '') {
             if ($seconds !== '') {
@@ -360,7 +360,7 @@ class Native extends AdapterAbstract
      *
      * @return array
      */
-    private function readISO6709(string $val_ISO6709): array
+    private function readISO6709(string $val_ISO6709)
     {
         $return = [
             'latitude' => null,
