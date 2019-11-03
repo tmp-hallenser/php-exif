@@ -48,7 +48,9 @@ class NativeMapperTest extends \PHPUnit_Framework_TestCase
         unset($map[\PHPExif\Mapper\Native::XRESOLUTION]);
         unset($map[\PHPExif\Mapper\Native::YRESOLUTION]);
         unset($map[\PHPExif\Mapper\Native::GPSLATITUDE]);
-        unset($map[\PHPExif\Mapper\Native::GPSLONGITUDE]);
+	unset($map[\PHPExif\Mapper\Native::GPSLONGITUDE]);
+	unset($map[\PHPExif\Mapper\Native::FRAMERATE]);
+	unset($map[\PHPExif\Mapper\Native::DURATION]);
 
         // create raw data
         $keys = array_keys($map);
@@ -255,8 +257,8 @@ class NativeMapperTest extends \PHPUnit_Framework_TestCase
         );
 
         foreach ($expected as $key => $value) {
-            $result = $this->mapper->mapRawData($value);
-            $this->assertEquals($key, reset($result));
+		$result = $this->mapper->mapRawData($value);
+	    $this->assertEquals($key, $result[\PHPExif\Exif::GPS]);
         }
     }
 
