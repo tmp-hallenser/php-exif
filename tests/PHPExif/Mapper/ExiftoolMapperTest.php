@@ -238,25 +238,6 @@ unset($map[\PHPExif\Mapper\Exiftool::GPSALTITUDE_QUICKTIME]);
      * @group mapper
      * @covers \PHPExif\Mapper\Exiftool::mapRawData
      */
-    public function testMapRawDataCorrectlyIgnoresIncorrectGPSData()
-    {
-        $this->mapper->setNumeric(false);
-        $result = $this->mapper->mapRawData(
-            array(
-                \PHPExif\Mapper\Exiftool::GPSLATITUDE  => '40.333452381',
-                'GPS:GPSLatitudeRef'                   => 'North',
-                \PHPExif\Mapper\Exiftool::GPSLONGITUDE => '20.167314814',
-                'GPS:GPSLongitudeRef'                  => 'West',
-            )
-        );
-
-        $this->assertCount(0, $result);
-    }
-
-    /**
-     * @group mapper
-     * @covers \PHPExif\Mapper\Exiftool::mapRawData
-     */
     public function testMapRawDataOnlyLatitude()
     {
         $result = $this->mapper->mapRawData(
