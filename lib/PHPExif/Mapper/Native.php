@@ -294,7 +294,7 @@ class Native implements MapperInterface
      * @param string $ref
      * @return float
      */
-    protected function extractGPSCoordinate(array $coordinate, string $ref)
+    protected function extractGPSCoordinate($coordinate, $ref)
     {
         $degrees = count($coordinate) > 0 ? $this->normalizeComponent($coordinate[0]) : 0;
         $minutes = count($coordinate) > 1 ? $this->normalizeComponent($coordinate[1]) : 0;
@@ -309,7 +309,7 @@ class Native implements MapperInterface
      * @param string $component
      * @return float
      */
-    protected function normalizeComponent(string $rational)
+    protected function normalizeComponent($rational)
     {
         $parts = explode('/', $rational, 2);
         if (count($parts) <= 0) {
