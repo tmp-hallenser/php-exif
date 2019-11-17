@@ -401,7 +401,6 @@ class Exif
      */
     public function getWidth()
     {
-
         if (!isset($this->data[self::WIDTH])) {
             return false;
         }
@@ -1128,57 +1127,55 @@ class Exif
     }
 
 
-        /**
-         * Sets the duration value
-         *
-         * @param string $value
-         * @return \PHPExif\Exif
-         */
-        public function setDuration($value)
-        {
-            $this->data[self::DURATION] = $value;
+    /**
+     * Sets the duration value
+     *
+     * @param string $value
+     * @return \PHPExif\Exif
+     */
+    public function setDuration($value)
+    {
+        $this->data[self::DURATION] = $value;
 
-            return $this;
+        return $this;
+    }
+
+    /**
+     * Returns duration, if it exists
+     *
+     * @return string|boolean
+     */
+    public function getDuration()
+    {
+        if (!isset($this->data[self::DURATION])) {
+            return false;
+        }
+        return $this->data[self::DURATION];
+    }
+    /**
+     * Sets the duration value
+     *
+     * @param string $value
+     * @return \PHPExif\Exif
+     */
+    public function setMicroVideoOffset($value)
+    {
+        $this->data[self::MICROVIDEOOFFSET] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Returns duration, if it exists
+     *
+     * @return string|boolean
+     */
+    public function getMicroVideoOffset()
+    {
+        if (!isset($this->data[self::MICROVIDEOOFFSET])) {
+            return false;
         }
 
-        /**
-         * Returns duration, if it exists
-         *
-         * @return string|boolean
-         */
-        public function getDuration()
-        {
-            if (!isset($this->data[self::DURATION])) {
-                return false;
-            }
-
-            return $this->data[self::DURATION];
-        }
-
-        /**
-         * Sets the duration value
-         *
-         * @param string $value
-         * @return \PHPExif\Exif
-         */
-        public function setMicroVideoOffset($value)
-        {
-            $this->data[self::MICROVIDEOOFFSET] = $value;
-
-            return $this;
-        }
-
-        /**
-         * Returns duration, if it exists
-         *
-         * @return string|boolean
-         */
-        public function getMicroVideoOffset()
-        {
-            if (!isset($this->data[self::MICROVIDEOOFFSET])) {
-                return false;
-            }
-
-            return $this->data[self::MICROVIDEOOFFSET];
-        }
+        return $this->data[self::MICROVIDEOOFFSET];
+    }
 }

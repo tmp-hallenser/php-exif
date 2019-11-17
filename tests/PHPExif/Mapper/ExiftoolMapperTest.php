@@ -49,6 +49,23 @@ class ExiftoolMapperTest extends \PHPUnit_Framework_TestCase
         unset($map[\PHPExif\Mapper\Exiftool::FOCALLENGTH]);
         unset($map[\PHPExif\Mapper\Exiftool::GPSLATITUDE]);
         unset($map[\PHPExif\Mapper\Exiftool::GPSLONGITUDE]);
+        unset($map[\PHPExif\Mapper\Exiftool::CAPTION]);
+	unset($map[\PHPExif\Mapper\Exiftool::CONTENTIDENTIFIER]);
+	unset($map[\PHPExif\Mapper\Exiftool::KEYWORDS]);
+	unset($map[\PHPExif\Mapper\Exiftool::DATETIMEORIGINAL]);
+	unset($map[\PHPExif\Mapper\Exiftool::DATETIMEORIGINAL_QUICKTIME]);
+        unset($map[\PHPExif\Mapper\Exiftool::MAKE_QUICKTIME]);
+        unset($map[\PHPExif\Mapper\Exiftool::MODEL_QUICKTIME]);
+unset($map[\PHPExif\Mapper\Exiftool::CONTENTIDENTIFIER_QUICKTIME]);
+unset($map[\PHPExif\Mapper\Exiftool::FRAMERATE]);
+unset($map[\PHPExif\Mapper\Exiftool::FRAMERATE_QUICKTIME_1]);
+unset($map[\PHPExif\Mapper\Exiftool::FRAMERATE_QUICKTIME_2]);
+unset($map[\PHPExif\Mapper\Exiftool::FRAMERATE_QUICKTIME_3]);
+unset($map[\PHPExif\Mapper\Exiftool::DURATION]);
+unset($map[\PHPExif\Mapper\Exiftool::DURATION_QUICKTIME]);
+unset($map[\PHPExif\Mapper\Exiftool::GPSLATITUDE_QUICKTIME]);
+unset($map[\PHPExif\Mapper\Exiftool::GPSLONGITUDE_QUICKTIME]);
+unset($map[\PHPExif\Mapper\Exiftool::GPSALTITUDE_QUICKTIME]);
 
         // create raw data
         $keys = array_keys($map);
@@ -60,7 +77,7 @@ class ExiftoolMapperTest extends \PHPUnit_Framework_TestCase
         $mapped = $this->mapper->mapRawData($rawData);
 
         $i = 0;
-        foreach ($mapped as $key => $value) {
+	foreach ($mapped as $key => $value) {
             $this->assertEquals($map[$keys[$i]], $key);
             $i++;
         }
@@ -215,25 +232,6 @@ class ExiftoolMapperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected_gps, $result['gps']);
         $this->assertEquals($expected_lat, $result['latitude']);
         $this->assertEquals($expected_lon, $result['longitude']);
-    }
-
-    /**
-     * @group mapper
-     * @covers \PHPExif\Mapper\Exiftool::mapRawData
-     */
-    public function testMapRawDataCorrectlyIgnoresIncorrectGPSData()
-    {
-        $this->mapper->setNumeric(false);
-        $result = $this->mapper->mapRawData(
-            array(
-                \PHPExif\Mapper\Exiftool::GPSLATITUDE  => '40.333452381',
-                'GPS:GPSLatitudeRef'                   => 'North',
-                \PHPExif\Mapper\Exiftool::GPSLONGITUDE => '20.167314814',
-                'GPS:GPSLongitudeRef'                  => 'West',
-            )
-        );
-
-        $this->assertCount(0, $result);
     }
 
     /**

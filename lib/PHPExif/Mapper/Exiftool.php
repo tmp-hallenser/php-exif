@@ -187,12 +187,11 @@ class Exiftool implements MapperInterface
                 case self::DATETIMEORIGINAL:
                 case self::DATETIMEORIGINAL_QUICKTIME:
                     try {
-                        if(!(strtotime($value)==false)) {
-                          $value = new DateTime(date('Y-m-d H:i:s', strtotime($value)));
+                        if (!(strtotime($value)==false)) {
+                            $value = new DateTime(date('Y-m-d H:i:s', strtotime($value)));
                         } else {
-                          continue 2;
+                            continue 2;
                         }
-
                     } catch (\Exception $exception) {
                         continue 2;
                     }
@@ -229,42 +228,42 @@ class Exiftool implements MapperInterface
                     break;
                 case self::GPSALTITUDE:
                     $flip = 1;
-                    if(!(empty($data['GPS:GPSAltitudeRef']))) {
-                      $flip = ($data['GPS:GPSAltitudeRef'] == '1') ? -1 : 1;
+                    if (!(empty($data['GPS:GPSAltitudeRef']))) {
+                        $flip = ($data['GPS:GPSAltitudeRef'] == '1') ? -1 : 1;
                     }
-		                $value = $flip * (float) $value;
+                        $value = $flip * (float) $value;
                     break;
                 case self::GPSALTITUDE_QUICKTIME:
                     $flip = 1;
-                    if(!(empty($data['Composite:GPSAltitudeRef']))) {
-                      $flip = ($data['Composite:GPSAltitudeRef'] == '1') ? -1 : 1;
+                    if (!(empty($data['Composite:GPSAltitudeRef']))) {
+                        $flip = ($data['Composite:GPSAltitudeRef'] == '1') ? -1 : 1;
                     }
                     $value = $flip * (float) $value;
                     break;
                 case self::IMAGEHEIGHT_VIDEO:
                 case self::IMAGEWIDTH_VIDEO:
                     $value_splitted = explode("x", $value);
-                    if(empty($mappedData[Exif::WIDTH])) {
-                      if(!(empty($data['Composite:Rotation']))) {
-                        if ($data['Composite:Rotation']=='90' || $data['Composite:Rotation']=='270') {
-                          $mappedData[Exif::WIDTH]  = intval($value_splitted[1]);
+                    if (empty($mappedData[Exif::WIDTH])) {
+                        if (!(empty($data['Composite:Rotation']))) {
+                            if ($data['Composite:Rotation']=='90' || $data['Composite:Rotation']=='270') {
+                                $mappedData[Exif::WIDTH]  = intval($value_splitted[1]);
+                            } else {
+                                $mappedData[Exif::WIDTH]  = intval($value_splitted[0]);
+                            }
                         } else {
-                          $mappedData[Exif::WIDTH]  = intval($value_splitted[0]);
+                            $mappedData[Exif::WIDTH]  = intval($value_splitted[0]);
                         }
-                      } else {
-                        $mappedData[Exif::WIDTH]  = intval($value_splitted[0]);
-                      }
                     }
-                    if(empty($mappedData[Exif::HEIGHT])) {
-                      if(!(empty($data['Composite:Rotation']))) {
-                        if ($data['Composite:Rotation']=='90' || $data['Composite:Rotation']=='270') {
-                          $mappedData[Exif::HEIGHT] = intval($value_splitted[0]);
+                    if (empty($mappedData[Exif::HEIGHT])) {
+                        if (!(empty($data['Composite:Rotation']))) {
+                            if ($data['Composite:Rotation']=='90' || $data['Composite:Rotation']=='270') {
+                                $mappedData[Exif::HEIGHT] = intval($value_splitted[0]);
+                            } else {
+                                $mappedData[Exif::HEIGHT] = intval($value_splitted[1]);
+                            }
                         } else {
-                          $mappedData[Exif::HEIGHT] = intval($value_splitted[1]);
+                            $mappedData[Exif::HEIGHT] = intval($value_splitted[1]);
                         }
-                      } else {
-                        $mappedData[Exif::HEIGHT] = intval($value_splitted[1]);
-                      }
                     }
                     continue 2;
                     break;
@@ -274,7 +273,7 @@ class Exiftool implements MapperInterface
         }
 
         // add GPS coordinates, if available
-        if (!(empty($mappedData[Exif::LATITUDE])) && !(empty($mappedData[Exif::LONGITUDE]))) {
+        if ((isset($mappedData[Exif::LATITUDE])) && (isset($mappedData[Exif::LONGITUDE]))) {
             $mappedData[Exif::GPS] = sprintf('%s,%s', $mappedData[Exif::LATITUDE], $mappedData[Exif::LONGITUDE]);
         } else {
             unset($mappedData[Exif::GPS]);
@@ -291,7 +290,7 @@ class Exiftool implements MapperInterface
      */
     protected function extractGPSCoordinates($coordinates)
     {
-        if (is_numeric($coordinates) === true || $this->numeric === true)  {
+        if (is_numeric($coordinates) === true || $this->numeric === true) {
             return ((float) $coordinates);
         } else {
             if (!preg_match('!^([0-9.]+) deg ([0-9.]+)\' ([0-9.]+)"!', $coordinates, $matches)) {
