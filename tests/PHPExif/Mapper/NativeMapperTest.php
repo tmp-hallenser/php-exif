@@ -2,11 +2,11 @@
 /**
  * @covers \PHPExif\Mapper\Native::<!public>
  */
-class NativeMapperTest extends \PHPUnit_Framework_TestCase
+class NativeMapperTest extends \PHPUnit\Framework\TestCase
 {
     protected $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new \PHPExif\Mapper\Native;
     }
@@ -48,9 +48,9 @@ class NativeMapperTest extends \PHPUnit_Framework_TestCase
         unset($map[\PHPExif\Mapper\Native::XRESOLUTION]);
         unset($map[\PHPExif\Mapper\Native::YRESOLUTION]);
         unset($map[\PHPExif\Mapper\Native::GPSLATITUDE]);
-	unset($map[\PHPExif\Mapper\Native::GPSLONGITUDE]);
-	unset($map[\PHPExif\Mapper\Native::FRAMERATE]);
-	unset($map[\PHPExif\Mapper\Native::DURATION]);
+        unset($map[\PHPExif\Mapper\Native::GPSLONGITUDE]);
+        unset($map[\PHPExif\Mapper\Native::FRAMERATE]);
+        unset($map[\PHPExif\Mapper\Native::DURATION]);
 
         // create raw data
         $keys = array_keys($map);
@@ -257,8 +257,31 @@ class NativeMapperTest extends \PHPUnit_Framework_TestCase
         );
 
         foreach ($expected as $key => $value) {
-		$result = $this->mapper->mapRawData($value);
-	    $this->assertEquals($key, $result[\PHPExif\Exif::GPS]);
+		        $result = $this->mapper->mapRawData($value);
+	          $this->assertEquals($key, $result[\PHPExif\Exif::GPS]);
+        }
+    }
+
+    /**
+     * @group mapper
+     * @covers \PHPExif\Mapper\Native::mapRawData
+     */
+    public function testMapRawDataCorrectlyFormatsAltitudeData()
+    {
+        $expected = array(
+            8848.0 => array(
+                'GPSAltitude'     => '8848',
+                'GPSAltitudeRef'  => '0',
+            ),
+            -10994.0 => array(
+                'GPSAltitude'     => '10994',
+                'GPSAltitudeRef'  => '1',
+            ),
+        );
+
+        foreach ($expected as $key => $value) {
+		        $result = $this->mapper->mapRawData($value);
+	          $this->assertEquals($key, $result[\PHPExif\Exif::ALTITUDE]);
         }
     }
 

@@ -167,13 +167,9 @@ class Native implements MapperInterface
             // manipulate the value if necessary
             switch ($field) {
                 case self::DATETIMEORIGINAL:
-                    try {
-                        if (!(strtotime($value)==false)) {
-                            $value = new DateTime(date('Y-m-d H:i:s', strtotime($value)));
-                        } else {
-                            continue 2;
-                        }
-                    } catch (Exception $exception) {
+                    if (!(strtotime($value)==false)) {
+                        $value = new DateTime(date('Y-m-d H:i:s', strtotime($value)));
+                    } else {
                         continue 2;
                     }
                     break;
@@ -312,9 +308,6 @@ class Native implements MapperInterface
     protected function normalizeComponent($rational)
     {
         $parts = explode('/', $rational, 2);
-        if (count($parts) <= 0) {
-            return 0.0;
-        }
         if (count($parts) == 1) {
             return (float) $parts[0];
         }

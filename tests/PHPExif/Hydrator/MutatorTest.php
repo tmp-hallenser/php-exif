@@ -3,12 +3,12 @@
  * @covers \PHPExif\Hydrator\Mutator::<!public>
  * @covers \PHPExif\Hydrator\HydratorInterface
  */
-class MutatorTest extends \PHPUnit_Framework_TestCase
+class MutatorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Setup function before the tests
      */
-    public function setUp()
+    protected function setUp(): void
     {
     }
 
@@ -70,4 +70,3 @@ class TestClass
     {
     }
 }
-
