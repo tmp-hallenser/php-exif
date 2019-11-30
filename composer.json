@@ -10,9 +10,9 @@
             "role": "Developer"
         }
     ],
-    "keywords": ["EXIF", "IPTC", "jpeg", "tiff", "exiftool"],
+    "keywords": ["EXIF", "IPTC", "jpeg", "tiff", "exiftool", "FFmpeg", "FFprobe"],
     "require": {
-        "php": ">=5.4",
+        "php": ">=7.1",
         "php-ffmpeg/php-ffmpeg": "^0.14.0"
     },
     "require-dev": {
@@ -26,7 +26,8 @@
     },
     "suggest": {
         "lib-exiftool": "Use perl lib exiftool as adapter",
-        "ext-exif": "Use exif PHP extension as adapter"
+        "ext-exif": "Use exif PHP extension as adapter",
+	"FFmpeg": "Use FFmpeg/FFprobe as adapter"
     },
     "autoload": {
         "psr-0": {
