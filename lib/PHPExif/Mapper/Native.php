@@ -150,7 +150,6 @@ class Native implements MapperInterface
         $gpsData = array();
 
         foreach ($data as $field => $value) {
-
             if ($this->isSection($field) && is_array($value)) {
                 $subData = $this->mapRawData($value);
 
@@ -170,15 +169,15 @@ class Native implements MapperInterface
                 case self::DATETIMEORIGINAL:
                     // Check if OffsetTimeOriginal (0x9011) is available
                     try {
-                      if(isset($data['UndefinedTag:0x9011'])) {
-                          $timezone = new \DateTimeZone($data['UndefinedTag:0x9011']);
-                          $value = new \DateTime($value, $timezone);
-                      } else {
-                          $value = new \DateTime($value);
-                      }
+                        if (isset($data['UndefinedTag:0x9011'])) {
+                            $timezone = new \DateTimeZone($data['UndefinedTag:0x9011']);
+                            $value = new \DateTime($value, $timezone);
+                        } else {
+                            $value = new \DateTime($value);
+                        }
                     } catch (\Exception $e) {
-                      // Provided DateTimeOriginal or OffsetTimeOriginal invalid
-                      continue 2;
+                        // Provided DateTimeOriginal or OffsetTimeOriginal invalid
+                        continue 2;
                     }
                     break;
                 case self::EXPOSURETIME:

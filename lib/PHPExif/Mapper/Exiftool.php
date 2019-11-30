@@ -188,19 +188,18 @@ class Exiftool implements MapperInterface
                     // QUICKTIME_DATE contains data on timezone
                     // only set value if QUICKTIME_DATE has not been used
                     if (!isset($mappedData[Exif::CREATION_DATE])) {
-                      try {
-                          if(isset($data['ExifIFD:OffsetTimeOriginal'])) {
-                              $timezone = new \DateTimeZone($data['ExifIFD:OffsetTimeOriginal']);
-                              $value = new \DateTime($value, $timezone);
-                          } else {
-                              $value = new \DateTime($value);
-                          }
-                      } catch (\Exception $e) {
-                          continue 2;
-                      }
-
+                        try {
+                            if (isset($data['ExifIFD:OffsetTimeOriginal'])) {
+                                $timezone = new \DateTimeZone($data['ExifIFD:OffsetTimeOriginal']);
+                                $value = new \DateTime($value, $timezone);
+                            } else {
+                                $value = new \DateTime($value);
+                            }
+                        } catch (\Exception $e) {
+                            continue 2;
+                        }
                     } else {
-                      continue 2;
+                        continue 2;
                     }
 
                     break;
