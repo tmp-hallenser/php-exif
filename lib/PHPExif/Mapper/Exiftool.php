@@ -185,12 +185,32 @@ class Exiftool implements MapperInterface
                     $value = sprintf('%1$sm', $value);
                     break;
                 case self::DATETIMEORIGINAL:
-                case self::DATETIMEORIGINAL_QUICKTIME:
-                    if (!(strtotime($value)==false)) {
-                        $value = new DateTime(date('Y-m-d H:i:s', strtotime($value)));
+                    // QUICKTIME_DATE contains data on timezone
+                    // only set value if QUICKTIME_DATE has not been used
+                    if (!isset($mappedData[Exif::CREATION_DATE])) {
+                      try {
+                          if(isset($data['ExifIFD:OffsetTimeOriginal'])) {
+                              $timezone = new \DateTimeZone($data['ExifIFD:OffsetTimeOriginal']);
+                              $value = new \DateTime($value, $timezone);
+                          } else {
+                              $value = new \DateTime($value);
+                          }
+                      } catch (\Exception $e) {
+                          continue 2;
+                      }
+
                     } else {
+                      continue 2;
+                    }
+
+                    break;
+                case self::DATETIMEORIGINAL_QUICKTIME:
+                    try {
+                        $value = new DateTime($value);
+                    } catch (\Exception $e) {
                         continue 2;
                     }
+
                     break;
                 case self::EXPOSURETIME:
                     // Based on the source code of Exiftool (PrintExposureTime subroutine):

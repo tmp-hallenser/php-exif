@@ -65,6 +65,7 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         unset($map[\PHPExif\Mapper\Exiftool::GPSLATITUDE_QUICKTIME]);
         unset($map[\PHPExif\Mapper\Exiftool::GPSLONGITUDE_QUICKTIME]);
         unset($map[\PHPExif\Mapper\Exiftool::GPSALTITUDE_QUICKTIME]);
+        unset($map[\PHPExif\Mapper\Exiftool::MICROVIDEOOFFSET]);
 
         // create raw data
         $keys = array_keys($map);
@@ -136,10 +137,96 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
      * @group mapper
      * @covers \PHPExif\Mapper\Exiftool::mapRawData
      */
+    public function testMapRawDataCorrectlyFormatsCreationDateWithTimeZone()
+    {
+        $data = array (
+          array(
+            \PHPExif\Mapper\Exiftool::DATETIMEORIGINAL => '2015:04:01 12:11:09+0200',
+          ),
+          array(
+              \PHPExif\Mapper\Exiftool::DATETIMEORIGINAL => '2015:04:01 12:11:09',
+              'ExifIFD:OffsetTimeOriginal' => '+0200',
+          ),
+          array(
+              \PHPExif\Mapper\Exiftool::DATETIMEORIGINAL_QUICKTIME => '2015-04-01T12:11:09+0200',
+              \PHPExif\Mapper\Exiftool::DATETIMEORIGINAL => '2015:04:01 12:11:09',
+              'ExifIFD:OffsetTimeOriginal' => '+0200',
+          )
+        );
+
+        foreach ($data as $key => $rawData) {
+            $mapped = $this->mapper->mapRawData($rawData);
+
+            $result = reset($mapped);
+            $this->assertInstanceOf('\\DateTime', $result);
+            $this->assertEquals(
+                '2015:04:01 12:11:09',
+                $result->format('Y:m:d H:i:s')
+            );
+            $this->assertEquals(
+                7200,
+                $result->getOffset()
+            );
+            $this->assertEquals(
+                '+02:00',
+                $result->getTimezone()->getName()
+            );
+        }
+
+    }
+
+    /**
+     * @group mapper
+     * @covers \PHPExif\Mapper\Exiftool::mapRawData
+     */
+    public function testMapRawDataCorrectlyFormatsCreationDateWithTimeZone2()
+    {
+        $rawData = array(
+            \PHPExif\Mapper\Exiftool::DATETIMEORIGINAL => '2015:04:01 12:11:09',
+            'ExifIFD:OffsetTimeOriginal' => '+0200',
+        );
+
+        $mapped = $this->mapper->mapRawData($rawData);
+
+        $result = reset($mapped);
+        $this->assertInstanceOf('\\DateTime', $result);
+        $this->assertEquals(
+            '2015:04:01 12:11:09',
+            $result->format('Y:m:d H:i:s')
+        );
+        $this->assertEquals(
+            7200,
+            $result->getOffset()
+        );
+        $this->assertEquals(
+            '+02:00',
+            $result->getTimezone()->getName()
+        );
+    }
+
+    /**
+     * @group mapper
+     * @covers \PHPExif\Mapper\Exiftool::mapRawData
+     */
     public function testMapRawDataCorrectlyIgnoresIncorrectCreationDate()
     {
         $rawData = array(
             \PHPExif\Mapper\Exiftool::DATETIMEORIGINAL => '2015:04:01',
+        );
+
+        $mapped = $this->mapper->mapRawData($rawData);
+
+        $this->assertEquals(false, reset($mapped));
+    }
+
+    /**
+     * @group mapper
+     * @covers \PHPExif\Mapper\Exiftool::mapRawData
+     */
+    public function testMapRawDataCorrectlyIgnoresIncorrectCreationDate2()
+    {
+        $rawData = array(
+            \PHPExif\Mapper\Exiftool::DATETIMEORIGINAL_QUICKTIME => '2015:04:01',
         );
 
         $mapped = $this->mapper->mapRawData($rawData);

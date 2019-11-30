@@ -75,7 +75,7 @@ class FFprobe implements MapperInterface
         self::QUICKTIME_GPSLATITUDE       => Exif::LATITUDE,
         self::QUICKTIME_GPSLONGITUDE      => Exif::LONGITUDE,
         self::QUICKTIME_GPSALTITUDE       => Exif::ALTITUDE,
-        self::QUICKTIME_CONTENTIDENTIFIER => Exif::CONTENTIDENTIFIER
+        self::QUICKTIME_CONTENTIDENTIFIER => Exif::CONTENTIDENTIFIER,
     );
 
     const SECTION_TAGS      = 'tags';
@@ -118,12 +118,26 @@ class FFprobe implements MapperInterface
             // manipulate the value if necessary
             switch ($field) {
                 case self::DATETIMEORIGINAL:
-                case self::QUICKTIME_DATE:
-                    if (!(strtotime($value)==false)) {
-                        $value = new DateTime(date('Y-m-d H:i:s', strtotime($value)));
+                    // QUICKTIME_DATE contains data on timezone
+                    // only set value if QUICKTIME_DATE has not been used
+                    if (!isset($mappedData[Exif::CREATION_DATE])) {
+                      try {
+                        $value = new DateTime($value);
+                      } catch (\Exception $e) {
+                        continue 2;
+                      }
                     } else {
+                      continue 2;
+                    }
+
+                    break;
+                case self::QUICKTIME_DATE:
+                    try {
+                        $value = new DateTime($value);
+                    } catch (\Exception $e) {
                         continue 2;
                     }
+
                     break;
                 case self::FRAMERATE:
                     $value = $this->normalizeComponent($value);

@@ -1,7 +1,6 @@
 <?php
 /**
  * @covers \PHPExif\Adapter\AdapterAbstract::<!public>
- * @covers \PHPExif\Adapter\AdapterInterface
  */
 class AdapterAbstractTest extends PHPUnit\Framework\TestCase
 {
@@ -229,4 +228,3 @@ class AdapterAbstractTest extends PHPUnit\Framework\TestCase
         $this->assertInstanceOf($hydratorClass, $reflProp->getValue($this->adapter));
     }
 }
-

@@ -1,7 +1,6 @@
 <?php
 /**
  * @covers \PHPExif\Reader\Reader::<!public>
- * @covers \PHPExif\Reader\ReaderInterface
  * @covers \PHPExif\Adapter\NoAdapterException
  */
 class ReaderTest extends \PHPUnit\Framework\TestCase

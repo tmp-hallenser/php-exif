@@ -1,7 +1,6 @@
 <?php
 /**
  * @covers \PHPExif\Hydrator\Mutator::<!public>
- * @covers \PHPExif\Hydrator\HydratorInterface
  */
 class MutatorTest extends \PHPUnit\Framework\TestCase
 {

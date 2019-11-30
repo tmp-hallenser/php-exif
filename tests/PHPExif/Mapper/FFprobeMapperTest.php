@@ -96,6 +96,64 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+
+    /**
+     * @group mapper
+     * @covers \PHPExif\Mapper\FFprobe::mapRawData
+     */
+    public function testMapRawDataCorrectlyFormatsCreationDateQuicktime()
+    {
+        $rawData = array(
+            \PHPExif\Mapper\FFprobe::QUICKTIME_DATE => '2015-04-01T12:11:09+0200',
+            \PHPExif\Mapper\FFprobe::DATETIMEORIGINAL => '2015-04-01T12:11:09.000000Z',
+        );
+
+        $mapped = $this->mapper->mapRawData($rawData);
+
+        $result = reset($mapped);
+        $this->assertInstanceOf('\\DateTime', $result);
+        $this->assertEquals(
+            '2015:04:01 12:11:09',
+            $result->format('Y:m:d H:i:s')
+        );
+        $this->assertEquals(
+            7200,
+            $result->getOffset()
+        );
+        $this->assertEquals(
+            '+02:00',
+            $result->getTimezone()->getName()
+        );
+    }
+
+    /**
+     * @group mapper
+     * @covers \PHPExif\Mapper\FFprobe::mapRawData
+     */
+    public function testMapRawDataCorrectlyFormatsCreationDateWithTimeZone()
+    {
+        $rawData = array(
+            \PHPExif\Mapper\FFprobe::DATETIMEORIGINAL => '2015:04:01 12:11:09+0200',
+        );
+
+        $mapped = $this->mapper->mapRawData($rawData);
+
+        $result = reset($mapped);
+        $this->assertInstanceOf('\\DateTime', $result);
+        $this->assertEquals(
+            '2015:04:01 12:11:09',
+            $result->format('Y:m:d H:i:s')
+        );
+        $this->assertEquals(
+            7200,
+            $result->getOffset()
+        );
+        $this->assertEquals(
+            '+02:00',
+            $result->getTimezone()->getName()
+        );
+    }
+
     /**
      * @group mapper
      * @covers \PHPExif\Mapper\FFprobe::mapRawData
@@ -103,7 +161,22 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
     public function testMapRawDataCorrectlyIgnoresIncorrectDateTimeOriginal()
     {
         $rawData = array(
-            \PHPExif\Mapper\Native::DATETIMEORIGINAL => '2015:04:01',
+            \PHPExif\Mapper\FFprobe::DATETIMEORIGINAL => '2015:04:01',
+        );
+
+        $mapped = $this->mapper->mapRawData($rawData);
+
+        $this->assertEquals(false, reset($mapped));
+    }
+
+    /**
+     * @group mapper
+     * @covers \PHPExif\Mapper\FFprobe::mapRawData
+     */
+    public function testMapRawDataCorrectlyIgnoresIncorrectDateTimeOriginal2()
+    {
+        $rawData = array(
+            \PHPExif\Mapper\FFprobe::QUICKTIME_DATE => '2015:04:01',
         );
 
         $mapped = $this->mapper->mapRawData($rawData);

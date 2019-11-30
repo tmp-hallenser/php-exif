@@ -140,6 +140,7 @@ class ExifTest extends \PHPUnit\Framework\TestCase
      * @covers \PHPExif\Exif::getContentIdentifier
      * @covers \PHPExif\Exif::getFramerate
      * @covers \PHPExif\Exif::getDuration
+     * @covers \PHPExif\Exif::getMicroVideoOffset
      * @param string $accessor
      */
     public function testUndefinedPropertiesReturnFalse($accessor)
@@ -195,6 +196,7 @@ class ExifTest extends \PHPUnit\Framework\TestCase
             array('getContentIdentifier'),
             array('getFramerate'),
             array('getDuration'),
+            array('getMicroVideoOffset'),
         );
     }
 
@@ -641,29 +643,41 @@ class ExifTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $this->exif->getContentIdentifier());
     }
 
-        /**
-         * @group exif
-         * @covers \PHPExif\Exif::getFramerate
-         */
-        public function testGetFramerate()
-        {
-            $expected = '24';
-            $data[\PHPExif\Exif::FRAMERATE] = $expected;
-            $this->exif->setData($data);
-            $this->assertEquals($expected, $this->exif->getFramerate());
-        }
+      /**
+       * @group exif
+       * @covers \PHPExif\Exif::getFramerate
+       */
+      public function testGetFramerate()
+      {
+          $expected = '24';
+          $data[\PHPExif\Exif::FRAMERATE] = $expected;
+          $this->exif->setData($data);
+          $this->assertEquals($expected, $this->exif->getFramerate());
+      }
 
-        /**
-         * @group exif
-         * @covers \PHPExif\Exif::getDuration
-         */
-        public function testGetDuration()
-        {
-            $expected = '1s';
-            $data[\PHPExif\Exif::DURATION] = $expected;
-            $this->exif->setData($data);
-            $this->assertEquals($expected, $this->exif->getDuration());
-        }
+      /**
+       * @group exif
+       * @covers \PHPExif\Exif::getDuration
+       */
+      public function testGetDuration()
+      {
+          $expected = '1s';
+          $data[\PHPExif\Exif::DURATION] = $expected;
+          $this->exif->setData($data);
+          $this->assertEquals($expected, $this->exif->getDuration());
+      }
+
+      /**
+       * @group exif
+       * @covers \PHPExif\Exif::getMicroVideoOffset
+       */
+      public function testGetMicroVideoOffset()
+      {
+          $expected = '3062730';
+          $data[\PHPExif\Exif::MICROVIDEOOFFSET] = $expected;
+          $this->exif->setData($data);
+          $this->assertEquals($expected, $this->exif->getMicroVideoOffset());
+      }
     /**
      * @group exif
      * @covers \PHPExif\Exif::setAperture
@@ -703,6 +717,7 @@ class ExifTest extends \PHPUnit\Framework\TestCase
      * @covers \PHPExif\Exif::setContentIdentifier
      * @covers \PHPExif\Exif::setFramerate
      * @covers \PHPExif\Exif::setDuration
+     * @covers \PHPExif\Exif::setMicroVideoOffset
      */
     public function testMutatorMethodsSetInProperty()
     {
