@@ -35,7 +35,8 @@ after_script:
 
 before_install:
   - sudo apt-get update 
-  - sudo apt-get install ffmpeg php-xdebug
+  - sudo apt-get install ffmpeg
+  - pecl install xdebug 
   - composer self-update
   - wget http://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-11.75.tar.gz
   - tar -zxvf Image-ExifTool-11.75.tar.gz
