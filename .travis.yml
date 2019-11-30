@@ -36,7 +36,6 @@ after_script:
 before_install:
   - sudo apt-get update 
   - sudo apt-get install ffmpeg
-  - pecl install xdebug 
   - composer self-update
   - wget http://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-11.75.tar.gz
   - tar -zxvf Image-ExifTool-11.75.tar.gz
@@ -44,8 +43,6 @@ before_install:
   - cd .. && rm -rf Image-ExifTool-11.75
   # Set composer minimum-stability configuration filter to beta versions
   - if [ "$DEPENDENCIES" = "beta" ]; then perl -pi -e 's/^}$/,"minimum-stability":"beta"}/' composer.json; fi;
-  # Disable xdebug, there is no use of it being enabled
-  - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
   # Prevent Travis throwing an out of memory error
   - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   # Test if we have a token for github in case the project hits the 60 rph limit
