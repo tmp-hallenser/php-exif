@@ -141,6 +141,10 @@ class ExifTest extends \PHPUnit\Framework\TestCase
      * @covers \PHPExif\Exif::getFramerate
      * @covers \PHPExif\Exif::getDuration
      * @covers \PHPExif\Exif::getMicroVideoOffset
+     * @covers \PHPExif\Exif::getCity
+     * @covers \PHPExif\Exif::getSublocation
+     * @covers \PHPExif\Exif::getState
+     * @covers \PHPExif\Exif::getCountry
      * @param string $accessor
      */
     public function testUndefinedPropertiesReturnFalse($accessor)
@@ -197,6 +201,10 @@ class ExifTest extends \PHPUnit\Framework\TestCase
             array('getFramerate'),
             array('getDuration'),
             array('getMicroVideoOffset'),
+            array('getCity'),
+            array('getSublocation'),
+            array('getState'),
+            array('getCountry'),
         );
     }
 
@@ -643,41 +651,90 @@ class ExifTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $this->exif->getContentIdentifier());
     }
 
-      /**
-       * @group exif
-       * @covers \PHPExif\Exif::getFramerate
-       */
-      public function testGetFramerate()
-      {
-          $expected = '24';
-          $data[\PHPExif\Exif::FRAMERATE] = $expected;
-          $this->exif->setData($data);
-          $this->assertEquals($expected, $this->exif->getFramerate());
-      }
+    /**
+     * @group exif
+     * @covers \PHPExif\Exif::getFramerate
+     */
+    public function testGetFramerate()
+    {
+        $expected = '24';
+        $data[\PHPExif\Exif::FRAMERATE] = $expected;
+        $this->exif->setData($data);
+        $this->assertEquals($expected, $this->exif->getFramerate());
+    }
 
-      /**
-       * @group exif
-       * @covers \PHPExif\Exif::getDuration
-       */
-      public function testGetDuration()
-      {
-          $expected = '1s';
-          $data[\PHPExif\Exif::DURATION] = $expected;
-          $this->exif->setData($data);
-          $this->assertEquals($expected, $this->exif->getDuration());
-      }
+    /**
+     * @group exif
+     * @covers \PHPExif\Exif::getDuration
+     */
+    public function testGetDuration()
+    {
+        $expected = '1s';
+        $data[\PHPExif\Exif::DURATION] = $expected;
+        $this->exif->setData($data);
+        $this->assertEquals($expected, $this->exif->getDuration());
+    }
 
-      /**
-       * @group exif
-       * @covers \PHPExif\Exif::getMicroVideoOffset
-       */
-      public function testGetMicroVideoOffset()
-      {
-          $expected = '3062730';
-          $data[\PHPExif\Exif::MICROVIDEOOFFSET] = $expected;
-          $this->exif->setData($data);
-          $this->assertEquals($expected, $this->exif->getMicroVideoOffset());
-      }
+    /**
+     * @group exif
+     * @covers \PHPExif\Exif::getMicroVideoOffset
+     */
+    public function testGetMicroVideoOffset()
+    {
+        $expected = '3062730';
+        $data[\PHPExif\Exif::MICROVIDEOOFFSET] = $expected;
+        $this->exif->setData($data);
+        $this->assertEquals($expected, $this->exif->getMicroVideoOffset());
+    }
+
+    /**
+     * @group exif
+     * @covers \PHPExif\Exif::getCity
+     */
+    public function testGetCity()
+    {
+        $expected = 'New York';
+        $data[\PHPExif\Exif::CITY] = $expected;
+        $this->exif->setData($data);
+        $this->assertEquals($expected, $this->exif->getCity());
+    }
+
+    /**
+     * @group exif
+     * @covers \PHPExif\Exif::getSublocation
+     */
+    public function testGetSublocation()
+    {
+        $expected = 'sublocation';
+        $data[\PHPExif\Exif::SUBLOCATION] = $expected;
+        $this->exif->setData($data);
+        $this->assertEquals($expected, $this->exif->getSublocation());
+    }
+
+    /**
+     * @group exif
+     * @covers \PHPExif\Exif::getState
+     */
+    public function testGetState()
+    {
+        $expected = 'New York';
+        $data[\PHPExif\Exif::STATE] = $expected;
+        $this->exif->setData($data);
+        $this->assertEquals($expected, $this->exif->getState());
+    }
+
+    /**
+     * @group exif
+     * @covers \PHPExif\Exif::getCountry
+     */
+    public function testGetCountry()
+    {
+        $expected = 'USA';
+        $data[\PHPExif\Exif::COUNTRY] = $expected;
+        $this->exif->setData($data);
+        $this->assertEquals($expected, $this->exif->getCountry());
+    }
+
     /**
      * @group exif
      * @covers \PHPExif\Exif::setAperture
@@ -718,6 +775,10 @@ class ExifTest extends \PHPUnit\Framework\TestCase
      * @covers \PHPExif\Exif::setFramerate
      * @covers \PHPExif\Exif::setDuration
      * @covers \PHPExif\Exif::setMicroVideoOffset
+     * @covers \PHPExif\Exif::setCity
+     * @covers \PHPExif\Exif::setSublocation
+     * @covers \PHPExif\Exif::setState
+     * @covers \PHPExif\Exif::setCountry
      */
     public function testMutatorMethodsSetInProperty()
     {

@@ -51,6 +51,10 @@ class NativeMapperTest extends \PHPUnit\Framework\TestCase
         unset($map[\PHPExif\Mapper\Native::GPSLONGITUDE]);
         unset($map[\PHPExif\Mapper\Native::FRAMERATE]);
         unset($map[\PHPExif\Mapper\Native::DURATION]);
+        unset($map[\PHPExif\Mapper\Native::CITY]);
+        unset($map[\PHPExif\Mapper\Native::SUBLOCATION]);
+        unset($map[\PHPExif\Mapper\Native::STATE]);
+        unset($map[\PHPExif\Mapper\Native::COUNTRY]);
 
         // create raw data
         $keys = array_keys($map);

@@ -63,6 +63,10 @@ class Native implements MapperInterface
     const SUBJECT          = 'subject';
     const FRAMERATE        = 'framerate';
     const DURATION         = 'duration';
+    const CITY             = 'city';
+    const SUBLOCATION      = 'sublocation';
+    const STATE            = 'state';
+    const COUNTRY          = 'country';
 
     const SECTION_FILE      = 'FILE';
     const SECTION_COMPUTED  = 'COMPUTED';
@@ -133,7 +137,11 @@ class Native implements MapperInterface
         self::DESCRIPTION      => Exif::DESCRIPTION,
         self::SUBJECT          => Exif::KEYWORDS,
         self::FRAMERATE        => Exif::FRAMERATE,
-        self::DURATION         => Exif::DURATION
+        self::DURATION         => Exif::DURATION,
+        self::SUBLOCATION      => Exif::SUBLOCATION,
+        self::CITY             => Exif::CITY,
+        self::STATE            => Exif::STATE,
+        self::COUNTRY          => Exif::COUNTRY
 
     );
 

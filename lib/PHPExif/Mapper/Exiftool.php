@@ -61,6 +61,10 @@ class Exiftool implements MapperInterface
     const SUBJECT                  = 'XMP-dc:Subject';
     const CONTENTIDENTIFIER        = 'Apple:ContentIdentifier';
     const MICROVIDEOOFFSET         = 'XMP-GCamera:MicroVideoOffset';
+    const SUBLOCATION              = 'IPTC2:Sublocation';
+    const CITY                     = 'IPTC2:City';
+    const STATE                    = 'IPTC2:Province-State';
+    const COUNTRY                  = 'IPTC2:Country-PrimaryLocationName';
 
     const DATETIMEORIGINAL_QUICKTIME  = 'QuickTime:CreationDate';
     const IMAGEHEIGHT_VIDEO           = 'Composite:ImageSize';
@@ -137,6 +141,10 @@ class Exiftool implements MapperInterface
         self::DURATION                    => Exif::DURATION,
         self::DURATION_QUICKTIME          => Exif::DURATION,
         self::MICROVIDEOOFFSET            => Exif::MICROVIDEOOFFSET,
+        self::SUBLOCATION                 => Exif::SUBLOCATION,
+        self::CITY                        => Exif::CITY,
+        self::STATE                       => Exif::STATE,
+        self::COUNTRY                     => Exif::COUNTRY
     );
 
     /**

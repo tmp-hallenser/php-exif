@@ -71,14 +71,18 @@ class Native extends AdapterAbstract
      * @var array
      */
     protected $iptcMapping = array(
-        'title'     => '2#005',
-        'keywords'  => '2#025',
-        'copyright' => '2#116',
-        'caption'   => '2#120',
-        'headline'  => '2#105',
-        'credit'    => '2#110',
-        'source'    => '2#115',
-        'jobtitle'  => '2#085'
+        'title'       => '2#005',
+        'keywords'    => '2#025',
+        'copyright'   => '2#116',
+        'caption'     => '2#120',
+        'headline'    => '2#105',
+        'credit'      => '2#110',
+        'source'      => '2#115',
+        'jobtitle'    => '2#085',
+        'city'        => '2#090',
+        'sublocation' => '2#092',
+        'state'       => '2#095',
+        'country'     => '2#101'
     );
 
 

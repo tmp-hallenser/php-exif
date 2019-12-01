@@ -66,6 +66,10 @@ class ExiftoolMapperTest extends \PHPUnit\Framework\TestCase
         unset($map[\PHPExif\Mapper\Exiftool::GPSLONGITUDE_QUICKTIME]);
         unset($map[\PHPExif\Mapper\Exiftool::GPSALTITUDE_QUICKTIME]);
         unset($map[\PHPExif\Mapper\Exiftool::MICROVIDEOOFFSET]);
+        unset($map[\PHPExif\Mapper\Exiftool::CITY]);
+        unset($map[\PHPExif\Mapper\Exiftool::SUBLOCATION]);
+        unset($map[\PHPExif\Mapper\Exiftool::STATE]);
+        unset($map[\PHPExif\Mapper\Exiftool::COUNTRY]);
 
         // create raw data
         $keys = array_keys($map);
