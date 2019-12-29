@@ -31,10 +31,13 @@ class FFprobe implements MapperInterface
     const FILENAME         = 'filename';
     const FRAMERATE        = 'avg_frame_rate';
     const DURATION         = 'duration';
-    const DATETIMEORIGINAL = 'creation_time';
+    const CREATION_TIME    = 'creation_time';
+    const DATETIMEORIGINAL = 'DateTimeOriginal';
     const GPSLATITUDE      = 'location';
     const GPSLONGITUDE     = 'location';
     const MIMETYPE         = 'MimeType';
+    const MAKE             = 'Make';
+    const MODEL            = 'Model';
 
     const QUICKTIME_GPSLATITUDE       = 'com.apple.quicktime.location.ISO6709';
     const QUICKTIME_GPSLONGITUDE      = 'com.apple.quicktime.location.ISO6709';
@@ -57,6 +60,7 @@ class FFprobe implements MapperInterface
     protected $map = array(
         self::HEIGHT           => Exif::HEIGHT,
         self::WIDTH            => Exif::WIDTH,
+        self::CREATION_TIME    => Exif::CREATION_DATE,
         self::DATETIMEORIGINAL => Exif::CREATION_DATE,
         self::FILESIZE         => Exif::FILESIZE,
         self::FILENAME         => Exif::FILENAME,
@@ -65,6 +69,8 @@ class FFprobe implements MapperInterface
         self::GPSLONGITUDE     => Exif::LONGITUDE,
         self::FRAMERATE        => Exif::FRAMERATE,
         self::DURATION         => Exif::DURATION,
+        self::MAKE             => Exif::MAKE,
+        self::MODEL            => Exif::CAMERA,
 
         self::QUICKTIME_DATE      => Exif::CREATION_DATE,
         self::QUICKTIME_DESCRIPTION       => Exif::DESCRIPTION,
@@ -117,6 +123,7 @@ class FFprobe implements MapperInterface
 
             // manipulate the value if necessary
             switch ($field) {
+                case self::CREATION_TIME:
                 case self::DATETIMEORIGINAL:
                     // QUICKTIME_DATE contains data on timezone
                     // only set value if QUICKTIME_DATE has not been used

@@ -60,6 +60,8 @@ class FFprobeMapperTest extends \PHPUnit\Framework\TestCase
         unset($map[\PHPExif\Mapper\FFprobe::QUICKTIME_KEYWORDS]);
         unset($map[\PHPExif\Mapper\FFprobe::FRAMERATE]);
         unset($map[\PHPExif\Mapper\FFprobe::DURATION]);
+        unset($map[\PHPExif\Mapper\FFprobe::MAKE]);
+        unset($map[\PHPExif\Mapper\FFprobe::MODEL]);
 
         // create raw data
         $keys = array_keys($map);
